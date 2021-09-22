@@ -81,20 +81,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.buttonStart:
-                this.startTileService();
-                break;
-            case R.id.buttonStop:
-                this.stopTileService();
-                break;
-            case R.id.buttonSettings:
-                // OPEN settings dialog
-                Intent preferencesIntent = new Intent(this, SettingsActivity.class);
-                startActivity(preferencesIntent);
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.buttonStart) {
+            this.startTileService();
+        } else if (id == R.id.buttonStop) {
+            this.stopTileService();
+        } else if (id == R.id.buttonSettings) {// OPEN settings dialog
+            Intent preferencesIntent = new Intent(this, SettingsActivity.class);
+            startActivity(preferencesIntent);
         }
     }
 

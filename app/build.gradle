@@ -1,13 +1,14 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    compileSdkVersion 29
+    compileSdkVersion 31
     defaultConfig {
-        applicationId "com.bojkosoft.bojko108.mobiletileserver"
+        //libraryId "com.bojkosoft.bojko108.mobiletileserver"
         minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
@@ -19,18 +20,18 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationVariants.all { variant ->
+            libraryVariants.all { variant ->
                 variant.outputs.all {
-                    outputFileName = "MobileTileServer-v${variant.versionName}-release.apk"
+                    outputFileName = "MobileTileServer-v${variant.flavorName}-release.aar"
                 }
             }
         }
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            applicationVariants.all { variant ->
+            libraryVariants.all { variant ->
                 variant.outputs.all {
-                    outputFileName = "MobileTileServer-v${variant.versionName}.apk"
+                    outputFileName = "MobileTileServer-v${variant.flavorName}.aar"
                 }
             }
         }
