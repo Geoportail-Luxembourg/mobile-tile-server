@@ -549,7 +549,18 @@ class TileServer {
             response.send(ServerFiles.getInternalServerErrorPage(responseData));
         } else {
             if (responseDataArray != null) {
-                response.send("image/png", responseDataArray);
+                String tile_type = parameters.getString("type");
+                if (tile_type == null) {
+                    response.send("image/png", responseDataArray);
+                }
+                else if (tile_type.equals("png")) {
+                    response.send("image/png", responseDataArray);
+                }
+                else if (tile_type.equals("pbf")) {
+                    response.getHeaders().add("Access-Control-Allow-Origin","*");
+                    response.getHeaders().add("Content-Encoding","gzip");
+                    response.send("application/x-protobuf", responseDataArray);
+                }
             } else {
                 response.send(responseData);
             }
@@ -686,6 +697,7 @@ class TileServer {
 
         // add pages for Bad Request and Internal Server Error
         response.code(responseCode);
+        response.getHeaders().add("Access-Control-Allow-Origin","*");
         if (responseCode == 500) {
             response.send(ServerFiles.getInternalServerErrorPage(responseData));
         } else {
